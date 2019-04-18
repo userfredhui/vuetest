@@ -15,15 +15,10 @@ yarn run serve
 yarn run build
 ```
 
-### Run your tests
-```
-yarn run test
-```
-
 ### Lints and fixes files
 ```
 yarn run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 本项目是后台管理系统，引入了element,vuex,axios.已经部署到了线上。
+[在线演示地址](http://api.penghui.work/vuetest/#/)
