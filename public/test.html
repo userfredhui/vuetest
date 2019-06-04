@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="testOnce()">测试按钮</button>
+  显示的框：<input id="test" type="text" oninput="handleInputChange.apply(this, arguments)" />
+  设置的框：<input oninput="hangleSetChange.apply(this, arguments)" />
+</body>
+</html>
+<script>
+  window.onload = init
+  var form = {}
+  var inputDom = document.getElementById('test')
+  let inputValue = ''
+  var testOnce = once(add)
+  function init() {
+    Object.defineProperty(form, 'input', {
+      get() {
+        return inputValue
+      },
+      set(newValue) {
+        inputValue = newValue
+        inputDom.value = newValue
+      },
+      enumerable: true,
+      configurable: true
+    })
+    form.input = '520'
+  }
+
+  function handleInputChange(e) {
+    form.input = e.target.value
+    console.log('form', form)
+  }
+
+  function hangleSetChange(e) {
+    console.log('this:', this)
+    console.log('event', e)
+    form.input = e.target.value
+  }
+
+  function add(event, step1 = 1, step2 = 2) {
+    console.log(event, step1, step2)
+    form.input += step1 + step2
+  }
+  function once(fn) {
+    let called = false
+    return function () {
+      if (!called) {
+        called = true
+        fn.apply(this, arguments)
+      }
+    }
+  }
+</script>
