@@ -10,31 +10,31 @@
 </template>
 
 <script>
-  import request from '@/utils/request';
-  export default {
-    data() {
-      return {
-        form: {
-          username: 'lph',
-          password: '123'
-        }
+import request from '@/utils/request';
+export default {
+  data() {
+    return {
+      form: {
+        username: 'lph',
+        password: '123',
+      },
+    };
+  },
+  methods: {
+    submit() {
+      const redirecturl = this.$route.query.redirecturl;
+      let jumpToUrl = '/home';
+      if (redirecturl) {
+        jumpToUrl = decodeURIComponent(redirecturl);
       }
-    },
-    methods: {
-      submit() {
-        const redirecturl = this.$route.query.redirecturl
-        let jumpToUrl = '/home'
-        if (redirecturl) {
-          jumpToUrl = decodeURIComponent(redirecturl)
+      request.post('/login', this.form, {}, true).then(res => {
+        if (res && res.code === '0') {
+          this.$router.push(jumpToUrl);
         }
-        request.post('/login', this.form, {}, true).then((res) => {
-          if (res && res.code === '0') {
-            this.$router.push(jumpToUrl)
-          }
-        })
-      }
+      });
     },
-  }
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -45,7 +45,7 @@
   align-items: center;
   justify-content: center;
   background-image: url('../assets/login-bg.jpg');
-  background-size: 100% 100%; 
+  background-size: 100% 100%;
 }
 .register-container {
   width: 350px;

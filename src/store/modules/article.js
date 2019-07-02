@@ -5,21 +5,21 @@ export default {
       state: '1',
       keywords: '',
       page: 1,
-      count: 10
-    }
+      count: 10,
+    },
   },
   mutations: {
     setSearchForm(state, payload) {
-      const { searchForm } = state
+      const { searchForm } = state;
       state.searchForm = {
         ...searchForm,
-        ...payload
-      }
-    }
+        ...payload,
+      };
+    },
   },
   getters: {
     getSearchForm(state) {
-      return state.searchForm
-    }
-  }
-}
+      return state.searchForm;
+    },
+  },
+};

@@ -1,4 +1,4 @@
-import article from './article'
+import article from './article';
 export default {
-  article
-}
+  article,
+};

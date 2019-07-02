@@ -3,9 +3,12 @@
     <header>
       <h3>管理平台</h3>
       <el-dropdown trigger="click" @command="handleCommand">
-        <span>昵称：{{user.nickname}}</span><i class="el-icon-arrow-down el-icon--right"></i>
+        <span>昵称：{{ user.nickname }}</span
+        ><i class="el-icon-arrow-down el-icon--right"></i>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item :command="item.command" v-for="item in dropdowns" :key="item.command">{{item.label}}</el-dropdown-item>
+          <el-dropdown-item :command="item.command" v-for="item in dropdowns" :key="item.command">{{
+            item.label
+          }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </header>
@@ -16,7 +19,8 @@
           @select="handleSelect"
           background-color="#545c64"
           text-color="#fff"
-          active-text-color="#ffd04b">
+          active-text-color="#ffd04b"
+        >
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -56,73 +60,73 @@ export default {
       dropdowns: [
         {
           command: 'loginout',
-          label: '退出登录'
-        }
-      ]
-    }
+          label: '退出登录',
+        },
+      ],
+    };
   },
   computed: {
     ...mapGetters({
-      user: 'getUserInfo'
-    })
+      user: 'getUserInfo',
+    }),
   },
   methods: {
     ...mapActions(['fetchUserInfo']),
     handleSelect(key) {
-      this.$router.push(key)
+      this.$router.push(key);
     },
     handleCommand(val) {
       if (val === 'loginout') {
         this.$confirm('即将退出登录，是否继续', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          request.get('/logout').then(() => {
-            this.$router.push('/')
+          type: 'warning',
+        })
+          .then(() => {
+            request.get('/logout').then(() => {
+              this.$router.push('/');
+            });
           })
-        }).catch(() => {})
-        
+          .catch(() => {});
       }
-    }
+    },
   },
   mounted() {
     if (this.$route.path !== '/') {
-      this.fetchUserInfo()
+      this.fetchUserInfo();
     }
   },
-}
+};
 </script>
 <style lang="less" scoped>
-  .common-layout-container {
-    header {
-      padding: 0 30px;
-      height: 80px;
-      background-color: skyblue;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+.common-layout-container {
+  header {
+    padding: 0 30px;
+    height: 80px;
+    background-color: skyblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    .el-dropdown > * {
       color: #ffffff;
-      .el-dropdown > * {
-        color: #ffffff;
-      }
-    }
-    main {
-      position: relative;
-      aside {
-        width: 200px;
-        position: absolute;
-        left: 0;
-        min-height: calc(100vh - 80px);
-      }
-      section {
-        margin-left: 200px;
-        padding-top: 20px;
-      }
-    }
-    section {
-      padding: 20px;
     }
   }
+  main {
+    position: relative;
+    aside {
+      width: 200px;
+      position: absolute;
+      left: 0;
+      min-height: calc(100vh - 80px);
+    }
+    section {
+      margin-left: 200px;
+      padding-top: 20px;
+    }
+  }
+  section {
+    padding: 20px;
+  }
+}
 </style>
-
