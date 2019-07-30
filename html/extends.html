@@ -1,0 +1,72 @@
+<!-- 继承简单的例子 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>继承</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  function Human(name) {
+    this.name = name
+  }
+  Human.prototype.run = function() {
+    console.log(this.name + '能跑步')
+  }
+  function Man(name) {
+    Human.call(this, name)
+    this.gender = '男'
+  }
+  let a = function() {}
+  a.prototype = Human.prototype
+  Man.prototype = new a()
+  Man.prototype.constructor = Man
+  Man.prototype.fight = function() {
+    console.log(this.gender + '的比较能打')
+  }
+  function Son(name) {
+    Man.call(this, name)
+    this.age = '年龄小'
+  }
+  a.prototype = Man.prototype
+  Son.prototype = new a()
+  Son.prototype.constructor = Son
+  Son.prototype.cry = function() {
+    console.log(this.age + '喜欢哭')
+  }
+  let o = new Son('小明')
+  for(let key in o) {
+    console.log('key', key)
+    console.log('value', o[key])
+  }
+  console.log('o', o)
+  o.cry()
+  o.fight()
+  o.run()
+
+  function Dad() {
+    this.arr = [1, 2, 3]
+  }
+
+  Dad.prototype.age = 'big'
+
+  function Son() {
+    // Dad.call(this, name)
+    this.age = 'small'
+  }
+  
+  Son.prototype = new Dad()
+  Son.prototype.constructor = Son
+  const son1 = new Son()
+  console.log('son1', son1)
+  son1.arr.push(4)
+  const son2 = new Son()
+  console.log('Cson1', son1)
+  console.log('Cson2', son2)
+
+</script>
